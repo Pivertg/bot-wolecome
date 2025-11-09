@@ -16,6 +16,9 @@ intents = discord.Intents.default()
 intents.members = True  # Nécessaire pour détecter les nouveaux membres
 intents.message_content = True  # Nécessaire pour lire les commandes
 
+# Désactiver la commande help par défaut
+bot = commands.Bot(command_prefix="+", intents=intents, help_command=None)
+
 @bot.event
 async def on_ready():
     print(f"✅ Bot connecté en tant que {bot.user}")
@@ -40,7 +43,7 @@ async def on_member_join(member):
     # Créer l'embed de bienvenue
     embed = discord.Embed(
         title="🎉 Nouveau membre !",
-        description=f"**Bienvenue sur le serveur __{member.guild.name}__ !**\n\nTu es le **{member.guild.member_count}ème membre** !",
+        description=f"**Bienvenue sur le serveur __{member.guild.name}__ !**\n\nTu es le **{member.guild.member_count}ème membre** ! 🎮",
         color=discord.Color.red()
     )
     
@@ -139,7 +142,7 @@ async def annonce(ctx):
         
         # Créer l'embed d'annonce
         embed = discord.Embed(
-            title="📢",
+            title="📢 Annonce",
             description=content,
             color=discord.Color.blue()
         )
@@ -164,6 +167,29 @@ async def annonce(ctx):
         await ctx.send(f"❌ Erreur lors de la création de l'annonce : {e}")
         print(f"Erreur annonce : {e}")
 
+@bot.command(name="help")
+async def help_command(ctx):
+    """Affiche l'aide du bot"""
+    embed = discord.Embed(
+        title="📖 Commandes du bot",
+        description="Voici les commandes disponibles :",
+        color=discord.Color.purple()
+    )
+    
+    embed.add_field(
+        name="+annonce",
+        value="Créer une annonce (réservé aux personnes autorisées)",
+        inline=False
+    )
+    
+    embed.add_field(
+        name="Message de bienvenue",
+        value="Automatique quand quelqu'un rejoint le serveur",
+        inline=False
+    )
+    
+    await ctx.send(embed=embed)
+
 async def start_bot(token):
     """Fonction pour démarrer le bot"""
     try:
@@ -177,7 +203,4 @@ if __name__ == "__main__":
     if TOKEN:
         asyncio.run(start_bot(TOKEN))
     else:
-
         print("❌ DISCORD_TOKEN manquant dans .env")
-
-
