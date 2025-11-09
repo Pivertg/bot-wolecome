@@ -43,7 +43,7 @@ async def on_member_join(member):
     # Créer l'embed de bienvenue
     embed = discord.Embed(
         title="🎉 Nouveau membre !",
-        description=f"**Bienvenue sur le serveur __{member.guild.name}__ !**\n\nTu es le **{member.guild.member_count}ème membre** ! 🎮",
+        description=f"**Bienvenue sur le serveur __{member.guild.name}__ !**\n\nTu es le **{member.guild.member_count}ème membre** !",
         color=discord.Color.red()
     )
     
@@ -203,4 +203,5 @@ if __name__ == "__main__":
     if TOKEN:
         asyncio.run(start_bot(TOKEN))
     else:
+
         print("❌ DISCORD_TOKEN manquant dans .env")
