@@ -142,7 +142,7 @@ async def annonce(ctx):
         
         # Créer l'embed d'annonce
         embed = discord.Embed(
-            title="📢 Annonce",
+            title="📢",
             description=content,
             color=discord.Color.blue()
         )
@@ -204,3 +204,4 @@ if __name__ == "__main__":
         asyncio.run(start_bot(TOKEN))
     else:
         print("❌ DISCORD_TOKEN manquant dans .env")
+
